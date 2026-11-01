@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dhun clone · guess the tune</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#/" aria-label="Dhun home"><span class="logo">N</span><span class="dhun hand">Dhun</span><span class="tag hand">guess the tune</span></a>
+  <nav class="bar">
+    <button class="pill" disabled title="Not part of the clone">♡ Support Dhun</button>
+    <a class="pill solid" href="#/">The Mela</a>
+    <span class="stars" title="Keys played, across all tunes"><b>★</b> <i id="starCount">0</i></span>
+    <label class="sing">Sing as
+      <select id="singAs" aria-label="Sing as">
+        <option value="letters">s r g — swaras in English letters</option>
+        <option value="syllables">sa re ga — swaras as syllables</option>
+      </select>
+    </label>
+    <button class="pill" id="reset">Reset</button>
+  </nav>
+</header>
+<main id="main"></main>
+<footer>A practice clone of Dhun, built for the Nathaniel School of Music work pack. Tune 2 is transcribed from the original; the others are my own entries in the same format.</footer>
+<script src="theory.js"></script>
+<script src="tunes.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
