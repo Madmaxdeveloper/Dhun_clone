@@ -1,7 +1,7 @@
 // Music theory for the Dhun clone. No DOM here, so Node can test it.
 const Theory = (() => {
   const LETTERS = ['C', 'D', 'E', 'F', 'G', 'A', 'B'], NAT = [0, 2, 4, 5, 7, 9, 11];
-  const KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];   // the 12 keys, spelled the way a musician writes them
+  const KEYS = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];   // the 12 keys, spelled the way a musician writes them
   const SCALES = {
     major: { label: 'Major · original', name: 'major', steps: [0, 2, 4, 5, 7, 9, 11] },
     minor: { label: 'Minor', name: 'minor', steps: [0, 2, 3, 5, 7, 8, 10] },
@@ -35,21 +35,22 @@ const Theory = (() => {
   }
 
   // TUNE FORMAT: one string. Bars are separated by |. A note is its scale number 1-7,
-  // then ' for each octave up (or , for down), then e = eighth, h = half, w = whole (none = quarter), then . = dotted.
+  // (a / starts a new row), then ' for each octave up (or , for down), then e = eighth, h = half, w = whole (none = quarter), then . = dotted.
   function parseTune(str, meter) {
     const [num, den] = meter.split('/').map(Number), barLen = (num * 4) / den, DUR = { e: 0.5, h: 2, w: 4 };
     const bars = [], notes = [], warnings = []; let t = 0;
-    str.split('|').map((s) => s.trim()).filter(Boolean).forEach((barStr, bi) => {
-      const bar = { notes: [], len: 0 };
+    const lines = str.split('/');          // '/' = the tune's own line break, like the original's phrase rows
+    lines.forEach((line, li) => line.split('|').map((s) => s.trim()).filter(Boolean).forEach((barStr, bi, arr) => {
+      const bar = { notes: [], len: 0, endsLine: li < lines.length - 1 && bi === arr.length - 1 };
       barStr.split(/\s+/).forEach((tok) => {
         const m = /^([1-7])('*|,*)([ehw]?)(\.?)$/.exec(tok);
-        if (!m) throw new Error(`Bad note "${tok}" in bar ${bi + 1}`);
+        if (!m) throw new Error(`Bad note "${tok}" in bar ${bars.length + 1}`);
         const dur = (DUR[m[3]] || 1) * (m[4] ? 1.5 : 1);
         const n = { deg: +m[1], oct: (m[2][0] === "'" ? 1 : -1) * m[2].length || 0, dur, start: t, rel: bar.len, eighth: m[3] === 'e', idx: notes.length };
         bar.notes.push(n); notes.push(n); bar.len += dur; t += dur;
       });
       bars.push(bar);
-    });
+    }));
     for (const bar of bars) bar.notes.forEach((n, i, a) => {            // beam two eighths that sit in the same beat
       const x = a[i + 1];
       if (n.eighth && x && x.eighth && !n.beamPrev && n.rel % 1 === 0 && Math.floor(x.rel) === n.rel) { n.beamNext = true; x.beamPrev = true; }

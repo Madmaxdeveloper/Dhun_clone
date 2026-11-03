@@ -30,6 +30,8 @@ main{padding:20px 22px 40px;max-width:1380px;margin:auto}
 .card .title{font-size:30px;color:var(--title);display:block;line-height:1.1}
 .card .dots{display:flex;gap:4px;margin:8px 0 4px;flex-wrap:wrap}.card .dots i{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--title);opacity:.55}.card .dots i.on{background:var(--title);opacity:1}
 .card small{display:block;color:var(--mute)}
+.cat{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#17806a;border:1px solid #17806a;border-radius:999px;padding:1px 9px;margin:4px 0 2px}
+.rating{display:block;color:var(--mute);font-size:14px}.rating b{color:var(--star);letter-spacing:2px}
 /* tune page */
 .navbtns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.navbtns .pill{border-radius:14px;padding:12px 18px;background:#f8f6f2}
 .titlecard{display:flex;gap:26px;align-items:center;background:var(--card);border-radius:18px;padding:22px 34px}
@@ -46,8 +48,7 @@ main{padding:20px 22px 40px;max-width:1380px;margin:auto}
 .t-sw{font:400 30px "Patrick Hand","Caveat",cursive;fill:var(--swara);text-anchor:middle}
 .t-nm{font:700 17px "Lato",system-ui,sans-serif;fill:#34323a;text-anchor:middle}
 .t-ts{font:400 46px "Patrick Hand","Caveat",cursive;fill:var(--num);text-anchor:middle}
-.rule{border-top:3px solid #2c8a7a;margin:6px 0 0}
-.controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:14px 0}
+.controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:14px 0 0;padding:12px 0;border-top:3px solid var(--title);position:sticky;bottom:0;z-index:5;background:var(--paper)}
 .play{font:700 22px "Lato",system-ui,sans-serif;background:var(--green);color:#fff;border:0;border-radius:999px;padding:14px 32px;cursor:pointer;min-width:150px}
 .play:hover{filter:brightness(1.08)}
 .dots{display:flex;gap:6px}.dots i{width:20px;height:20px;border-radius:50%;border:2px solid var(--green);display:block}.dots i.on{background:var(--green)}
@@ -57,7 +58,7 @@ main{padding:20px 22px 40px;max-width:1380px;margin:auto}
 .controls label{color:var(--mute);display:flex;align-items:center;gap:8px}
 .controls select{font-size:20px}
 .toggles{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 18px}
-.tg{font:700 16px "Lato",system-ui,sans-serif;color:var(--ink);background:#f8f6f2;border:1px solid var(--line);border-radius:14px;padding:12px 20px;cursor:pointer}
+.tg,.tgbtn{font:700 16px "Lato",system-ui,sans-serif;color:var(--ink);background:#f8f6f2;border:1px solid var(--line);border-radius:14px;padding:12px 20px;cursor:pointer}
 .tg[aria-pressed=true]{background:#ece7de;border:2px solid var(--purple)}
 .scalebar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
 .scalebar b{margin-right:6px;font-size:18px}
@@ -82,3 +83,32 @@ footer{margin:10px 22px 30px;padding-top:14px;border-top:1px solid var(--line);c
  .shelf-head h1{font-size:34px}.play{min-width:0;width:100%}.tempo input{width:110px}
 }
 @media (prefers-reduced-motion:reduce){.card,.hl{transition:none}}
+
+/* per-tune colours: a tune picks one with  theme: "mint" | "rose"  (mint is the default) */
+.theme-mint{--card:#dce6df;--title:#1f8a6f;--stick:#5a4de0;--num:#7a4a9e;--swara:#a3261f}
+.theme-rose{--card:#efdcd6;--title:#c0392b;--stick:#3f9b7a;--num:#76769a;--swara:#5b46e0}
+.play{background:var(--title)}.dots i{border-color:var(--title)}.dots i.on{background:var(--title)}
+.blurb{color:var(--title)}.cat{color:var(--title);border-color:var(--title)}
+
+/* ---- added: guess box, title stamp, staff, one-note-at-a-time ---- */
+.guess{margin:14px 0 4px;padding:10px 14px;border:2px dashed #b9b4a8;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.guess .hand{font-size:24px}
+.btn{font:700 15px "Lato",system-ui,sans-serif;background:#f8f6f2;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer}
+.btn.ok{background:#2f8f3a;border-color:#2f8f3a;color:#fff}
+.stamp{text-align:right;margin:2px 0 6px}.stamp span{display:inline-block;font-size:22px;letter-spacing:.04em;color:var(--swara);border:2px solid var(--swara);border-radius:4px;padding:0 12px;transform:rotate(-1.5deg)}
+.staffhead{font:700 12px "Lato",system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:26px 0 0}
+.sheet.staff{margin-top:6px}
+.stl{stroke:#34323a;stroke-width:1.4}.stl.bl{stroke-width:1.6}.stl.thick{stroke-width:4}
+.clef{font:64px "Segoe UI Symbol","Noto Music","Apple Symbols","Bravura",serif;fill:#34323a}
+.acc{font:700 22px "Segoe UI Symbol","Noto Music","Apple Symbols",serif;fill:#34323a}
+.tsig{font:700 28px "Lato",system-ui,sans-serif;fill:#34323a;text-anchor:middle}
+.t-st{font:400 17px "Patrick Hand","Caveat",cursive;fill:#4b3fc4;text-anchor:middle}
+.sn-s{stroke:#26242a;stroke-width:1.8;fill:none;stroke-linecap:round}.sn-s.beam{stroke-width:5}
+.sn-f{fill:#26242a;stroke:#26242a}.sn-s.sn-f{stroke-width:1.8}
+.sn.on .sn-s{stroke:var(--star)}.sn.on .sn-f{fill:var(--star);stroke:var(--star)}.sn.on .acc{fill:var(--star)}
+.stepper{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:6px 0 14px}
+.stepinfo{background:#ece7de;border-radius:10px;padding:10px 14px;color:var(--ink);min-width:230px}
+.stepbtns{display:flex;gap:8px}
+@media (min-width:721px){.controls{padding-bottom:10px}}
+@media (max-width:720px){.controls{position:static}}
+@media print{.controls,.toggles,.navbtns,.guess,.stepper,.top,footer,.piano,.scalebar,.hint{display:none}}
